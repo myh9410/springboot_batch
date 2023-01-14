@@ -7,6 +7,7 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
@@ -98,8 +99,10 @@ public class ExampleJobConfig {
     }
 
     @Bean
+    @JobScope
     public Step startStep2() {
         return stepBuilderFactory.get("startStep2")
+                .startLimit(3)
                 .tasklet((contribution, chunkContext) -> {
                     log.info("start step2!");
 
