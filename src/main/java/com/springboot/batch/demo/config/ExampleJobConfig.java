@@ -4,6 +4,7 @@ import com.springboot.batch.demo.dto.Teacher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ExitStatus;
+import org.springframework.batch.core.ItemReadListener;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -34,7 +35,7 @@ public class ExampleJobConfig {
     private final String RESULT_FAIL = "FAIL";
     private final String RESULT_UNKNOWN = "UNKNOWN";
 
-    @Bean
+//    @Bean
     public Job ExampleJob() {
         Job exampleJob = jobBuilderFactory.get("exampleJob")
                 .start(startStep())
@@ -45,7 +46,7 @@ public class ExampleJobConfig {
         return exampleJob;
     }
 
-    @Bean
+//    @Bean
     public Job ExampleJob2() {
         Job exampleJob2 = jobBuilderFactory.get("exampleJob2")
                 .start(startStep2())
@@ -89,6 +90,9 @@ public class ExampleJobConfig {
                 .reader(reader())
                 .processor(processor())
                 .writer(writer())
+                .faultTolerant()
+                .retryLimit(3)
+                .retry(RuntimeException.class)
                 .build();
     }
 
