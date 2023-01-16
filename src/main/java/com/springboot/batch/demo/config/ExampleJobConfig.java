@@ -35,7 +35,7 @@ public class ExampleJobConfig {
     private final String RESULT_FAIL = "FAIL";
     private final String RESULT_UNKNOWN = "UNKNOWN";
 
-//    @Bean
+    @Bean
     public Job ExampleJob() {
         Job exampleJob = jobBuilderFactory.get("exampleJob")
                 .start(startStep())
@@ -46,7 +46,7 @@ public class ExampleJobConfig {
         return exampleJob;
     }
 
-//    @Bean
+    @Bean
     public Job ExampleJob2() {
         Job exampleJob2 = jobBuilderFactory.get("exampleJob2")
                 .start(startStep2())
